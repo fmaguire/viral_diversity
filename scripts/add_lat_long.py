@@ -49,7 +49,6 @@ if __name__ == '__main__':
         for line in fh:
             line = line.strip().split(',')
             country = line[args.field]
-            print(country)
             data = centroids[centroids['SHORT_NAME'] == country]
             if len(data) == 1:
                 line.append(str(data['LAT'].item()))
