@@ -1,6 +1,6 @@
-SEQ=test.fasta
+SEQ=RSV_full_G_protein_sequences_aa_20170514.fasta
 
-all: metadata.csv $(SEQ).phy
+all: metadata.csv $(SEQ).contree
 
 metadata.csv: $(SEQ) ./scripts/strip_data.sh ./scripts/add_lat_long.py \
 	country_centroids_primary.csv

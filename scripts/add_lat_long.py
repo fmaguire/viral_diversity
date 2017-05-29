@@ -45,10 +45,18 @@ if __name__ == '__main__':
 
         # write header
         header = next(fh).strip()
+        print(header)
 
         for line in fh:
             line = line.strip().split(',')
             country = line[args.field]
+
+            fix_dict = {'USA': 'United States',
+                        'Hong Kong': 'China',
+                        'Viet Nam': 'Vietnam'}
+            if country in fix_dict:
+                country = fix_dict[country]
+
             data = centroids[centroids['SHORT_NAME'] == country]
             if len(data) == 1:
                 line.append(str(data['LAT'].item()))
