@@ -1,16 +1,16 @@
-SEQ=RSV_full_G_protein_sequences_aa_20170514.fasta
+SEQ=test.fas
 
-all: metadata.csv $(SEQ).contree
+all: $(SEQ)_metadata.csv $(SEQ).contree
 
-metadata.csv: $(SEQ) ./scripts/strip_data.sh ./scripts/add_lat_long.py \
-	country_centroids_primary.csv
+$(SEQ)_metadata.csv: $(SEQ) ./scripts/strip_data.sh ./scripts/add_lat_long.py
 	@echo "Generating metadata file"
 	./scripts/strip_data.sh $(SEQ) > metadata_tmp.csv
 	./scripts/add_lat_long.py metadata_tmp.csv 1 > metadata.csv
 	-rm metadata_tmp.csv
 	
 $(SEQ).contree: $(SEQ).mask
-	iqtree-omp -s $(SEQ).mask -abayes -bb 10000 -alrt 0 -nt 2
+	FastTree $(SEQ).mask > $(SEQ).contree
+	#iqtree-omp -s $(SEQ).mask -alrt 0 -nt 2
 
 $(SEQ).mask: $(SEQ).afa
 	@echo "Masking"
