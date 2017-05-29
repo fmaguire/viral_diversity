@@ -9,8 +9,7 @@ $(SEQ)_metadata.csv: $(SEQ) ./scripts/strip_data.sh ./scripts/add_lat_long.py
 	-rm metadata_tmp.csv
 	
 $(SEQ).contree: $(SEQ).mask
-	FastTree $(SEQ).mask > $(SEQ).contree
-	#iqtree-omp -s $(SEQ).mask -alrt 0 -nt 2
+	iqtree-omp -s $(SEQ).mask -abayes -bb 10000 -alrt 0 -nt 2
 
 $(SEQ).mask: $(SEQ).afa
 	@echo "Masking"
